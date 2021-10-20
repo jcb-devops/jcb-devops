@@ -14,7 +14,7 @@ steps:
     feedsToUse: 'select'
     vstsFeed: 'my-vsts-feed' # A series of numbers and letters
 
-steps:
+
 - task: DotNetCoreCLI@2
   displayName: Build
   inputs:
@@ -22,7 +22,7 @@ steps:
     projects: '**/*.csproj'
     arguments: '--configuration $(buildConfiguration)' # Update this to match your need
 
-steps:
+
 # ...
 # do this after other tasks such as building
 - task: DotNetCoreCLI@2
@@ -31,7 +31,7 @@ steps:
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
-steps:
+
 # ...
 # do this after other tasks such as building
 - task: DotNetCoreCLI@2
@@ -39,8 +39,6 @@ steps:
     command: test
     projects: '**/*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
-
-steps:
 
 - task: DotNetCoreCLI@2
   inputs:
@@ -55,7 +53,6 @@ steps:
     targetPath: '$(Build.ArtifactStagingDirectory)' 
     artifactName: 'myWebsiteName'
 
-steps:
 # ...
 # do this near the end of your pipeline in most cases
 - script: dotnet pack /p:PackageVersion=$(version)  # define version variable elsewhere in your pipeline
@@ -70,7 +67,6 @@ steps:
     versioningScheme: byEnvVar
     versionEnvVar: version
 
-steps:
 # ...
 # do this after you've built your app, near the end of your pipeline in most cases
 # for example, you do this before you deploy to an Azure web app on Windows
